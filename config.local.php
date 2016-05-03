@@ -17,6 +17,12 @@ $CONF['fetchmail'] = 'NO';
 //$CONF['admin_email'] = 'admin@';
 $CONF['admin_email'] = '';
 
+// Mail Server
+// Hostname (FQDN) of your mail server.
+// This is used to send email to Postfix in order to create mailboxes.
+$CONF['smtp_server'] = 'localhost';
+$CONF['smtp_port'] = '25';
+
 // In what flavor should courier-authlib style passwords be encrypted?
 // md5 = {md5} + base64 encoded md5 hash
 // md5raw = {md5raw} + plain encoded md5 hash
