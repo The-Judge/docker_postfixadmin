@@ -24,7 +24,7 @@ COPY php-fpm.conf /etc/php/php-fpm.conf
 COPY postfixadmin.ini /etc/supervisor.d/postfixadmin.ini
 COPY startup /usr/local/bin/startup
 
-RUN chmod +x /usr/local/bin/startup /usr/local/bin/setup ; \
+RUN chmod +x /usr/local/bin/startup ; \
      chown ${UID}:${GID} -R /etc/supervisor.d /postfixadmin
 
 EXPOSE 80
