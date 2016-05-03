@@ -14,7 +14,8 @@ $CONF['dovecotpw'] = "/usr/bin/doveadm pw";
 $CONF['fetchmail'] = 'NO';
 
 // Leave blank to send email from the logged-in Admin's Email address.
-$CONF['admin_email'] = 'admin@';
+//$CONF['admin_email'] = 'admin@';
+$CONF['admin_email'] = '';
 
 // In what flavor should courier-authlib style passwords be encrypted?
 // md5 = {md5} + base64 encoded md5 hash
