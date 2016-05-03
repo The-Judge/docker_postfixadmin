@@ -2,11 +2,11 @@
 
 $CONF['configured'] = true;
 
-$CONF['database_type'] = $_ENV['DBS'];
-$CONF['database_host'] = $_ENV['DBHOST'];
-$CONF['database_user'] = $_ENV['DBUSER'];
-$CONF['database_password'] = $_ENV['DBPASS'];
-$CONF['database_name'] = $_ENV['DBNAME'];
+$CONF['database_type'] = 'xxDBSxx';
+$CONF['database_host'] = 'xxDBHOSTxx';
+$CONF['database_user'] = 'xxDBUSERxx';
+$CONF['database_password'] = 'xxDBPASSxx';
+$CONF['database_name'] = 'xxDBNAMExx';
 
 $CONF['encrypt'] = 'dovecot:SHA512-CRYPT';
 $CONF['dovecotpw'] = "/usr/bin/doveadm pw";

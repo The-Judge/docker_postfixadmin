@@ -22,6 +22,14 @@ if [ -e /extra/config.local.php ]; then
       chown ${UID}:${GID} /postfixadmin/config.local.php
     fi
   fi
+else
+  if [ -e /postfixadmin/config.local.php ]; then
+    sed -i'' "s#xxDBSxx#${DBS}#g" /postfixadmin/config.local.php
+    sed -i'' "s#xxDBHOSTxx#${DBHOST}#g" /postfixadmin/config.local.php
+    sed -i'' "s#xxDBUSERxx#${DBUSER}#g" /postfixadmin/config.local.php
+    sed -i'' "s#xxDBPASSxx#${DBPASS}#g" /postfixadmin/config.local.php
+    sed -i'' "s#xxDBNAMExx#${DBNAME}#g" /postfixadmin/config.local.php
+  fi
 fi
 
 # Set permissions
