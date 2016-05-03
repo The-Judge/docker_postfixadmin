@@ -1,7 +1,7 @@
 FROM alpine:3.3
-MAINTAINER Hardware <contact@meshup.net>
+MAINTAINER Marc Richter <richter_marc@gmx.net>
 
-ENV GID=991 UID=991 VERSION=2.93 DBHOST=mariadb DBUSER=postfix DBNAME=postfix
+ENV GID=991 UID=991 VERSION=trunk DBHOST=dbhost DBUSER=postfix DBNAME=postfix DBS=mysqli
 
 RUN echo "@commuedge http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
  && apk -U add \
@@ -11,21 +11,21 @@ RUN echo "@commuedge http://nl.alpinelinux.org/alpine/edge/community" >> /etc/ap
     php-mysql \
     php-mysqli \
     dovecot \
+    subversion \
     supervisor \
     tini@commuedge \
   && rm -f /var/cache/apk/*
 
-RUN wget -q http://downloads.sourceforge.net/project/postfixadmin/postfixadmin/postfixadmin-$VERSION/postfixadmin-$VERSION.tar.gz -P /tmp \
- && mkdir /postfixadmin && tar -xzf /tmp/postfixadmin-$VERSION.tar.gz -C /postfixadmin && mv /postfixadmin/postfixadmin-$VERSION/* /postfixadmin \
- && rm -rf /tmp/* /postfixadmin/postfixadmin-$VERSION*
+RUN mkdir -p /etc/supervisor.d /postfixadmin ; svn co http://svn.code.sf.net/p/postfixadmin/code/trunk /postfixadmin
 
+COPY config.local.php /postfixadmin/config.local.php
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY php-fpm.conf /etc/php/php-fpm.conf
-COPY supervisord.conf /etc/supervisor/supervisord.conf
-COPY setup /usr/local/bin/setup
+COPY postfixadmin.ini /etc/supervisor.d/postfixadmin.ini
 COPY startup /usr/local/bin/startup
 
-RUN chmod +x /usr/local/bin/startup /usr/local/bin/setup
+RUN chmod +x /usr/local/bin/startup /usr/local/bin/setup ; \
+     chown ${UID}:${GID} -R /etc/supervisor.d /postfixadmin
 
 EXPOSE 80
 

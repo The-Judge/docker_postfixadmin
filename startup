@@ -1,51 +1,45 @@
 #!/bin/sh
 
 # ENV
-export DOMAIN
-DOMAIN="$(hostname --domain)"
+export DOMAIN="$(hostname --domain)"
 
 if [ -z "$DBPASS" ]; then
-  echo "Mariadb database password must be set !"
+  echo "Database password must be set !"
   exit 1
 fi
 
 # Create user and set permission
 addgroup -g ${GID} postfixadmin && adduser -h /postfixadmin -s /bin/sh -D -G postfixadmin -u ${UID} postfixadmin
 
-# Local postfixadmin configuration file
-cat > /postfixadmin/config.local.php <<EOF
-<?php
-
-\$CONF['configured'] = true;
-
-\$CONF['database_type'] = 'mysqli';
-\$CONF['database_host'] = '${DBHOST}';
-\$CONF['database_user'] = '${DBUSER}';
-\$CONF['database_password'] = '${DBPASS}';
-\$CONF['database_name'] = '${DBNAME}';
-
-\$CONF['encrypt'] = 'dovecot:SHA512-CRYPT';
-\$CONF['dovecotpw'] = "/usr/bin/doveadm pw";
-
-\$CONF['domain_path'] = 'YES';
-\$CONF['domain_in_mailbox'] = 'NO';
-\$CONF['fetchmail'] = 'NO';
-
-\$CONF['admin_email'] = 'admin@${DOMAIN}';
-\$CONF['footer_text'] = 'Return to ${DOMAIN}';
-\$CONF['footer_link'] = 'http://${DOMAIN}';
-\$CONF['default_aliases'] = array (
-  'abuse'      => 'abuse@${DOMAIN}',
-  'hostmaster' => 'hostmaster@${DOMAIN}',
-  'postmaster' => 'postmaster@${DOMAIN}',
-  'webmaster'  => 'webmaster@${DOMAIN}'
-);
-
-?>
-EOF
+# Overwrite config.local.php if /extra/config.local.php is found ...
+if [ -e /extra/config.local.php ]; then
+  # ... and only if it differs from /postfixadmin/config.local.php
+  if [ -e /postfixadmin/config.local.php ]; then
+    diff /postfixadmin/config.local.php /extra/config.local.php >/dev/null 2>/dev/null
+    if [ $? -ne 0 ]; then
+      cp -f /postfixadmin/config.local.php /postfixadmin/config.local.bak.php
+      cp -f /extra/config.local.php /postfixadmin/config.local.php
+      chown ${UID}:${GID} /postfixadmin/config.local.php
+    fi
+  fi
+fi
 
 # Set permissions
-chown -R postfixadmin:postfixadmin /postfixadmin /var/run/php-fpm.sock /var/lib/nginx /tmp
+chown -R ${UID}:${GID} /postfixadmin /var/run/php-fpm.sock /var/lib/nginx /tmp
+
+# Switch to new svn tag if set
+if [ "${VERSION}" != "trunk" ]; then
+  svn sw --force http://svn.code.sf.net/p/postfixadmin/code/tags/${VERSION} /postfixadmin
+fi
+
+# Execute hook script
+if [ -e /extra/init ]; then
+  if [ -x /extra/init ]; then
+    /extra/init
+  else
+    /bin/sh -c /extra/init
+  fi
+fi
 
 # RUN !
-supervisord -c /etc/supervisor/supervisord.conf
+supervisord -n -c /etc/supervisord.conf
