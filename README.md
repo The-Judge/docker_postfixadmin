@@ -49,6 +49,7 @@ After you gave the container a few seconds to start (usually <10), you should be
 - **DBUSER** = Database username (*optional*, default: postfix)
 - **DBNAME** = Database name (*optional*, default: postfix)
 - **DBPASS** = Database password (**required**)
+- **SETUPPASS** = Postfix Admin setup password (*optional*)
 
 ### Startup hook
 
