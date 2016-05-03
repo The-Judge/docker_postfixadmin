@@ -4,7 +4,7 @@
 
 Postfix Admin is a web based interface used to manage mailboxes, virtual domains and aliases. It also features support for vacation/out-of-the-office messages.
 
-This work is based on [hardware/postfixadmin](https://github.com/hardware/postfixadmin). Most is 1:1 identically, with the following differences (as of the time of this writing):
+This work is heavily based on [hardware/postfixadmin](https://github.com/hardware/postfixadmin). Most is 1:1 identically and most of the credits for this image go to [hardware](https://github.com/hardware), with the following differences (as of the time of this writing):
 
 - There was no scripting hook in the startup process which made it possible to change anything in the startup process.
 - There was no way to keep local config for Postfix Admin during container restarts.

@@ -17,6 +17,7 @@ RUN echo "@commuedge http://nl.alpinelinux.org/alpine/edge/community" >> /etc/ap
   && rm -f /var/cache/apk/*
 
 RUN mkdir -p /etc/supervisor.d /postfixadmin ; svn co http://svn.code.sf.net/p/postfixadmin/code/trunk /postfixadmin
+RUN sed -i'' 's#^variables_order = .*#variables_order = "EGPCS"#g' /etc/php/php.ini
 
 COPY config.local.php /postfixadmin/config.local.php
 COPY nginx.conf /etc/nginx/nginx.conf
