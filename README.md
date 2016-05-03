@@ -53,7 +53,26 @@ After you gave the container a few seconds to start (usually <10), you should be
 
 ### Startup hook
 
-TODO: Doku
+There's an commandline option for ``docker run``, which maps (mounts) any volume to a path inside a docker container: ``-v``. Not only this can map Docker VOLUMES from other Docker containers, but also it can make directories from the Docker Host available inside any container.
+
+This can be used to enable the startup hook - functionality this image provides:
+First, create an empty folder anywhere on your docker host. For example, lets use ``/home/foobar/folder``. Inside that folder, you now create a file, named ``init``. Optionally, you can make it executable:
+
+```
+#> mkdir -p /home/foobar/folder
+#> touch /home/foobar/folder/init
+#> chmod +x /home/foobar/folder/init
+```
+
+You can now enter any commands into that file you desire; they will be executed just before the daemons are started. For example, you could write the following into that file:
+
+```
+rm -f /postfixadmin/CHANGELOG.TXT
+```
+
+To have the file ``/postfixadmin/CHANGELOG.TXT`` deleted before the webserver makes it available.
+
+**Note:** The shebang line (``#! ...``) should point either to ``/bin/ash`` or ``/bin/sh``; ``bash`` is not available. Therefore, please stick to compatible syntax for these shells to make sure your script works as expected.
 
 ### Docker-compose
 
