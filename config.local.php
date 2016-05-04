@@ -63,7 +63,14 @@ $CONF['default_aliases'] = array (
   'abuse'      => 'abuse@',
   'hostmaster' => 'hostmaster@',
   'postmaster' => 'postmaster@',
-  'webmaster'  => 'webmaster@'
+  'webmaster'  => 'webmaster@',
+  'ftp'        => 'root',
+  'news'       => 'usenet',
+  'noc'        => 'root',
+  'security'   => 'root',
+  'usenet'     => 'root',
+  'uucp'       => 'root',
+  'www'        => 'webmaster'
 );
 $CONF['special_alias_control'] = 'YES';
 
