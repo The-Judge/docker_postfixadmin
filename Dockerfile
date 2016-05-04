@@ -10,6 +10,7 @@ RUN echo "@commuedge http://nl.alpinelinux.org/alpine/edge/community" >> /etc/ap
     php-imap \
     php-mysql \
     php-mysqli \
+    php-pgsql \
     dovecot \
     subversion \
     supervisor \
