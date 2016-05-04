@@ -40,9 +40,6 @@ if [ -e /postfixadmin/config.local.php ]; then
   fi
 fi
 
-# Set permissions
-chown -R ${UID}:${GID} /postfixadmin /var/run/php-fpm.sock /var/lib/nginx /tmp
-
 # Switch to new svn tag if set
 if [ "${VERSION}" != "trunk" ]; then
   svn sw --force http://svn.code.sf.net/p/postfixadmin/code/tags/${VERSION} /postfixadmin
@@ -56,6 +53,9 @@ if [ -e /extra/init ]; then
     /bin/sh -c /extra/init
   fi
 fi
+
+# Set permissions
+chown -R ${UID}:${GID} /postfixadmin /var/run/php-fpm.sock /var/lib/nginx /tmp
 
 # RUN !
 supervisord -n -c /etc/supervisord.conf

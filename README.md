@@ -137,6 +137,22 @@ $CONF['database_type'] = 'pgsql';
 
 and uses that PostgreSQL module for DB connections instead.
 
+### Using a different version of Postfix Admin
+
+This image uses Subversion to checkout (download) a copy of Postfix Admin when it is build. It uses the [trunk](http://svn.code.sf.net/p/postfixadmin/code/trunk) for this, which represents the latest version of the code available.
+
+If you want to use another version, you can do so by defining the variable ``$VERSION`` on your Docker commandline, adding:
+
+```
+-e VERSION=postfixadmin-x.yy
+```
+
+This switches to the specified tag (Subversion) before starting the daemons.
+You can use every [tag in the Postfix Admin Subversion tree](http://svn.code.sf.net/p/postfixadmin/code/tags/). For example, if you would like to use version ``2.92`` of Postfix Admin, you would add the following to your Docker commandline:
+
+```
+-e VERSION=postfixadmin-2.92
+```
 
 ### Docker-compose
 
