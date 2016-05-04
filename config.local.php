@@ -69,8 +69,6 @@ $CONF['special_alias_control'] = 'YES';
 
 $CONF['domain_quota'] = 'NO';
 
-$CONF['backup'] = 'YES';
-
 // When creating mailboxes or aliases, check that the domain-part of the
 // address is legal by performing a name server look-up.
 $CONF['emailcheck_resolve_domain']='NO';
