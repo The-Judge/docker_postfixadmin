@@ -32,7 +32,7 @@ if [ -e /postfixadmin/config.local.php ]; then
   sed -i'' "s#xxDBPASSxx#${DBPASS}#g" /postfixadmin/config.local.php
   sed -i'' "s#xxDBNAMExx#${DBNAME}#g" /postfixadmin/config.local.php
   if [ ! -z "${SETUPPASS}" ]; then
-    grep -v '^\?>' /postfixadmin/config.local.php | grep -v setup_password > /postfixadmin/config.temp.php
+    grep -v '^?>' /postfixadmin/config.local.php | grep -v setup_password > /postfixadmin/config.temp.php
     grep setup_password /postfixadmin/config.inc.php | sed "s#changeme#${SETUPPASS}#g" >> /postfixadmin/config.temp.php
     echo '?>' >> /postfixadmin/config.temp.php
     chown ${UID}:${GID} /postfixadmin/config.temp.php
