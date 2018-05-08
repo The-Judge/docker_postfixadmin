@@ -10,6 +10,7 @@ RUN echo "@commuedge http://nl.alpinelinux.org/alpine/edge/community" >> /etc/ap
     nginx \
     php7-fpm \
     php7-imap \
+    php7-mbstring \
     php7-mysqli \
     php7-pgsql \
     php7-phar \
