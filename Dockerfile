@@ -3,6 +3,7 @@ MAINTAINER Marc Richter <mail@marc-richter.info>
 
 ENV GID=991 UID=991 VERSION=3.2 DBHOST=dbhost DBUSER=postfix DBNAME=postfix DBS=mysqli
 
+RUN apk upgrade apk-tools
 RUN echo "@commuedge http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
  && apk -U add \
     git \
@@ -11,6 +12,7 @@ RUN echo "@commuedge http://nl.alpinelinux.org/alpine/edge/community" >> /etc/ap
     php7-imap \
     php7-mysqli \
     php7-pgsql \
+    php7-phar \
     dovecot \
     supervisor \
     tini@commuedge \
