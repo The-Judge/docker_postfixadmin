@@ -21,7 +21,7 @@ RUN mkdir -p /etc/supervisor.d /postfixadmin ; git clone https://github.com/post
 
 COPY config.local.php /postfixadmin/config.local.php
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY php-fpm.conf /etc/php/php-fpm.conf
+COPY php-fpm.conf /etc/php7/php-fpm.conf
 COPY postfixadmin.ini /etc/supervisor.d/postfixadmin.ini
 COPY startup /usr/local/bin/startup
 
