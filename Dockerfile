@@ -13,6 +13,7 @@ RUN echo "@commuedge http://nl.alpinelinux.org/alpine/edge/community" >> /etc/ap
     php7-mysqli \
     php7-pgsql \
     php7-phar \
+    php7-session \
     dovecot \
     supervisor \
     tini@commuedge \
