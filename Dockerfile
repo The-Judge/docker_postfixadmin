@@ -1,23 +1,23 @@
-FROM alpine:3.3
-MAINTAINER Marc Richter <richter_marc@gmx.net>
+FROM alpine:latest
+MAINTAINER Marc Richter <mail@marc-richter.info>
 
-ENV GID=991 UID=991 VERSION=trunk DBHOST=dbhost DBUSER=postfix DBNAME=postfix DBS=mysqli
+ENV GID=991 UID=991 VERSION=3.2 DBHOST=dbhost DBUSER=postfix DBNAME=postfix DBS=mysqli
 
 RUN echo "@commuedge http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
  && apk -U add \
+    git \
     nginx \
-    php-fpm \
-    php-imap \
-    php-mysql \
-    php-mysqli \
-    php-pgsql \
+    php7-fpm \
+    php7-imap \
+    php7-mysqli \
+    php7-pgsql \
     dovecot \
-    subversion \
     supervisor \
     tini@commuedge \
   && rm -f /var/cache/apk/*
 
-RUN mkdir -p /etc/supervisor.d /postfixadmin ; svn co http://svn.code.sf.net/p/postfixadmin/code/trunk /postfixadmin
+RUN mkdir -p /etc/supervisor.d /postfixadmin ; git clone https://github.com/postfixadmin/postfixadmin.git /postfixadmin \
+ ; cd /postfixadmin ; git checkout tags/postfixadmin-${VERSION} ; rm -rf /postfixadmin/.git ; cd ${OLDPWD}
 
 COPY config.local.php /postfixadmin/config.local.php
 COPY nginx.conf /etc/nginx/nginx.conf
