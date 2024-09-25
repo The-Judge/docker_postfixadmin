@@ -17,6 +17,11 @@ on:
     # 1st Monday of each month
     - cron: '30 5 1-7 * 1'
 
+# https://stackoverflow.com/a/72408109/1549322
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
 
   build:
