@@ -50,4 +50,3 @@ jobs:
           push: true
           context: .
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/postfixadmin:latest,${{ secrets.DOCKERHUB_USERNAME }}/postfixadmin:${{ github.ref_name }}
-      
