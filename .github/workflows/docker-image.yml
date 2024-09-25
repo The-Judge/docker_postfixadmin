@@ -4,11 +4,13 @@ on:
   push:
     branches:
       - master
+      - main
     tags:
       - 'v*'
   pull_request:
     branches:
       - master
+      - main
     tags:
       - 'v*'
   schedule:
@@ -36,7 +38,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push Docker images (master -> latest)
         uses: docker/build-push-action@v6.7.0
-        #if: github.ref_name == 'master'
+        if: ${{ github.ref_name == 'master' || github.ref_name == 'main' }}
         with:
           pull: true
           push: true
@@ -44,7 +46,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/postfixadmin:latest
       - name: Build and push Docker images (tag + master -> latest)
         uses: docker/build-push-action@v6.7.0
-        #if: github.ref_name != 'master'
+        if: ${{ github.ref_name != 'master' && github.ref_name != 'main' }}
         with:
           pull: true
           push: true
