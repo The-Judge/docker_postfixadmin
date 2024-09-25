@@ -27,8 +27,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Print Variables (env)
         run: env
-      - name: Print Variables (vars)
-        run: vars
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -44,4 +42,4 @@ jobs:
           pull: true
           push: true
           context: .
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKERHUB_REPO_NAME }}:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/postfixadmin:latest
