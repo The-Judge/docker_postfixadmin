@@ -6,13 +6,13 @@ on:
       - master
       - main
     tags:
-      - 'v*'
+      - '*'
   pull_request:
     branches:
       - master
       - main
     tags:
-      - 'v*'
+      - '*'
   schedule:
     # 1st Monday of each month
     - cron: '30 5 1-7 * 1'
