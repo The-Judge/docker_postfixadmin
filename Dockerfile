@@ -3,7 +3,7 @@ MAINTAINER Marc Richter <mail@marc-richter.info>
 
 ENV GID=991 UID=991 VERSION=3.3.13 DBHOST=dbhost DBUSER=postfix DBNAME=postfix DBS=mysqli
 
-RUN echo "@commuedge http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+RUN echo "@commuedge http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 RUN apk update ; apk upgrade apk-tools \
  && apk -U add \
     git \
