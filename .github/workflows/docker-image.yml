@@ -38,7 +38,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push Docker images (master -> latest)
         uses: docker/build-push-action@v6.7.0
-        if: ${{ env.GITHUB_REF_NAME }} == 'master'
+        if: ${{ github.ref_name }} == 'master'
         with:
           pull: true
           push: true
@@ -46,10 +46,10 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/postfixadmin:latest
       - name: Build and push Docker images (tag + master -> latest)
         uses: docker/build-push-action@v6.7.0
-        if: ${{ env.GITHUB_REF_NAME }} != 'master'
+        if: ${{ github.ref_name }} != 'master'
         with:
           pull: true
           push: true
           context: .
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/postfixadmin:latest,${{ secrets.DOCKERHUB_USERNAME }}/postfixadmin:foo
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/postfixadmin:latest,${{ secrets.DOCKERHUB_USERNAME }}/postfixadmin:${{ github.ref_name }}
       
